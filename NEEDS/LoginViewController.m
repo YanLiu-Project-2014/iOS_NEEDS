@@ -89,8 +89,11 @@
     self.progressHUD = nil;
     self.loginOperation = [AppDelegate.engine doLogin:name password:pwd completionHandler:^(JSONModel *user){
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-        NSLog(@"user:%@",user);
+        NSLog(@"user:%@",[user description]);
         user = nil;
+        MainpageViewController *MainpageVC = [self.storyboard instantiateViewControllerWithIdentifier:@"Mainpage"];
+        [self.view removeFromSuperview];
+        [self.view insertSubview:MainpageVC.view atIndex:0];
     }errorHandler:^(NSError *error){
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         NSLog(@"VCerror,%@",error);

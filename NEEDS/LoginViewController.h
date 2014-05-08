@@ -10,6 +10,7 @@
 #import "YUNEEDSAppDelegate.h"
 #import "MKNetworkKit/MKNetworkEngine.h"
 #import "MBProgressHUD.h"
+#import "MainpageViewController.h"
 
 @interface LoginViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UITextField *login_tf_name;
