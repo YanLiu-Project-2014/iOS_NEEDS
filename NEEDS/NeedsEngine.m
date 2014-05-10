@@ -10,7 +10,13 @@
 
 // web interface
 #define SERVER_BASE @"fishcat.wicp.net"
+
 #define LOGIN_URL @"data_controller/usercontroller/login_control"
+
+#define MP_SEARCH_URL @"" // 主页-搜索
+#define MP_NEEDSELECTION_URL @"" // 主页-精选需求
+#define MP_SERVICESELECTION_URL @"" // 主页-精选服务
+#define MP_PROVIDERSELECTION_URL @"" // 主页-精选服务商
 
 // const response type string
 #define CODE @"code"
@@ -63,4 +69,23 @@
     return op;
 }
 
+-(MKNetworkOperation*)searchInMainpage:(NSString *)mType content:(NSString *)mCcontent completionHandler:(ArrayBlock)mCcompletionHandler errorHandler:(ErrorBlock)mErrorHandler{
+    NSDictionary *params = @{@"type":mType,@"content":mCcontent};
+    
+    // prepare operation
+    MKNetworkOperation *operatoin = [self operationWithPath:MP_SEARCH_URL params:params httpMethod:@"POST"];
+    [operatoin addCompletionHandler:^(MKNetworkOperation *completedOperation){
+        
+    }errorHandler:^(MKNetworkOperation *completedOperation, NSError *error){
+        
+    }];
+    
+    [self enqueueOperation:operatoin];
+    return operatoin;
+}
+
+-(MKNetworkOperation*)getSelectionInMainpage:(NSString *)mType completionHandler:(ArrayBlock)mCompletionHandler errorHandler:(ErrorBlock)mErrorHandler{
+    MKNetworkOperation *operation = [self operationWithPath:@"" params:@"" httpMethod:@""];
+    return operation;
+}
 @end

@@ -40,6 +40,34 @@ typedef void (^ErrorBlock)(NSError* engineError);
  *
  *  @since 1.0
  */
--(MKNetworkOperation*) doLogin:(NSString*)name password:(NSString *)pwd completionHandler:(ModelBlock)completion errorHandler:(ErrorBlock)error;
+-(MKNetworkOperation*)doLogin:(NSString*)name password:(NSString *)pwd completionHandler:(ModelBlock)completion errorHandler:(ErrorBlock)error;
+
+/**
+ *  Search results in mainpage.
+ *
+ *  @param tyep               search type
+ *  @param _content           search content
+ *  @param _completionHandler completion handler
+ *  @param _errorHandler      error handler
+ *
+ *  @return network operation
+ *
+ *  @since 1.0
+ */
+-(MKNetworkOperation*)searchInMainpage:(NSString*)type content:(NSString*)_content completionHandler:(ArrayBlock)_completionHandler errorHandler:(ErrorBlock) _errorHandler;
+
+/**
+ *  Get selection objects in mainpage. Here selection could be needs selection, service selcetion and
+ *  provider selection.
+ *
+ *  @param type               selection type (0:needs, 1:services, 2:providers)
+ *  @param _completionHandler competion handler
+ *  @param _errorHandler      error handler
+ *
+ *  @return network operation
+ *
+ *  @since 1.0
+ */
+-(MKNetworkOperation*)getSelectionInMainpage:(NSString*)type completionHandler:(ArrayBlock)_completionHandler errorHandler:(ErrorBlock)_errorHandler;
 
 @end

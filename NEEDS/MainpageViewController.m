@@ -8,8 +8,16 @@
 
 #import "MainpageViewController.h"
 
-@interface MainpageViewController ()
+@interface MainpageViewController (){
+    BOOL chooseSearchTypeIsShow;
+}
+@property (weak, nonatomic) IBOutlet UIButton *searchTypeBtn;
+@property (weak, nonatomic) IBOutlet UIView *chooseSearchTypeView;
+@property (weak, nonatomic) IBOutlet UIView *shadeView;
+- (IBAction)chooseSearchTypeAction:(id)sender;
+- (IBAction)clickChooseTypeAction:(id)sender;
 
+- (IBAction)firstAction:(id)sender;
 @end
 
 @implementation MainpageViewController
@@ -81,7 +89,60 @@
 }
 */
 
+- (IBAction)searchField_EditingDidBegin:(id)sender {
+    self.shadeView.hidden = NO;
+}
+
 - (IBAction)searchField_DidEndOnExit:(id)sender {
+    self.shadeView.hidden = YES;
     [sender resignFirstResponder];
+}
+
+- (IBAction)shadeView_TouchDown:(id)sender {
+    [self searchField_DidEndOnExit:self.search_TextField];
+}
+- (IBAction)chooseSearchTypeAction:(id)sender {
+    if (chooseSearchTypeIsShow) {
+        self.chooseSearchTypeView.hidden = YES;
+        chooseSearchTypeIsShow = NO;
+    }else{
+        self.chooseSearchTypeView.hidden = NO;
+        chooseSearchTypeIsShow = YES;
+    }
+}
+- (IBAction)testActrion:(id)sender {
+    self.searchTypeBtn.titleLabel.text = @"服务商";
+}
+
+- (IBAction)clickChooseTypeAction:(id)sender {
+    switch (((UIButton*)sender).tag) {
+        case 1: // click 需求
+            NSLog(@"需求");
+            //            self.searchTypeBtn.titleLabel.text = @"需求";
+            [self.searchTypeBtn setTitle:@"需求" forState:UIControlStateNormal];
+            break;
+        case 2:
+            NSLog(@"服务");
+//            self.searchTypeBtn.titleLabel.text = @"";
+            [self.searchTypeBtn setTitle:@"服务" forState:UIControlStateNormal];
+            break;
+        case 3:
+            NSLog(@"服务商");
+//            self.searchTypeBtn.titleLabel.text = @"";
+            [self.searchTypeBtn setTitle:@"服务商" forState:UIControlStateNormal];
+            break;
+        default:
+//            self.searchTypeBtn.titleLabel.text = @"服务商";
+            NSLog(@"默认");
+            break;
+    }
+    self.chooseSearchTypeView.hidden = YES;
+    chooseSearchTypeIsShow = NO;
+    NSLog(@"tag%d",[(UIButton*)sender tag]);
+    
+}
+
+- (IBAction)firstAction:(id)sender {
+    NSLog(@"click first...");
 }
 @end
