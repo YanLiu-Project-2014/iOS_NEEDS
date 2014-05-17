@@ -46,4 +46,7 @@
 }
 */
 
+- (IBAction)backToMenuAction:(id)sender {
+    [self.slidingViewController anchorTopViewToRightAnimated:YES];
+}
 @end

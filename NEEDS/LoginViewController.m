@@ -65,7 +65,7 @@
 - (IBAction)UIButton_login_TouchUpInside:(id)sender {
     // check whether user name and pwd is null.
     if (!([self.login_tf_name.text isEqualToString:@""] || [self.login_tf_pwd.text isEqualToString:@""])) {
-        [self DoLogin:self.login_tf_name.text password:self.login_tf_pwd.text];
+        [self DoLogin:self.login_tf_name.text password:self.login_tf_pwd.text userType:([self.userTypeSeguementControl selectedSegmentIndex]+1)];
     }else{
         NSString *alertStr;
         if ([self.login_tf_name.text isEqualToString:@""]) {
@@ -78,7 +78,7 @@
     }
 }
 
-- (void)DoLogin:(NSString*)name password:(NSString*)pwd{
+- (void)DoLogin:(NSString*)name password:(NSString*)pwd userType:(int)mUserType{
     if (self.loginOperation != nil) { // have login operation already exit?
         [self.loginOperation cancel];
         self.loginOperation = nil;
@@ -87,21 +87,34 @@
     self.progressHUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     self.progressHUD.labelText = NSLocalizedString(@"登录中...", @"");
     self.progressHUD = nil;
-    self.loginOperation = [AppDelegate.engine doLogin:name password:pwd completionHandler:^(JSONModel *user){
+    self.loginOperation = [AppDelegate.engine doLogin:name password:pwd userType:mUserType completionHandler:^(JSONModel *user){
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         NSLog(@"user:%@",[user description]);
-        user = nil;
-        MainpageViewController *MainpageVC = [self.storyboard instantiateViewControllerWithIdentifier:@"Mainpage"];
-        [self.view removeFromSuperview];
-        [self.view insertSubview:MainpageVC.view atIndex:0];
+        [[YUNEEDSConfig getSharedConfig] saveUser:(User *)user userType:mUserType];
+        [[YUNEEDSConfig getSharedConfig] saveUserToLocale];
+        
+        [self.delegate loginSuccessedOperation];
+        [self dismissViewControllerAnimated:YES completion:nil];
+//        user = nil;
+//        MainpageViewController *MainpageVC = [self.storyboard instantiateViewControllerWithIdentifier:@"Mainpage"];
+//        [self.view removeFromSuperview];
+//        [self.view insertSubview:MainpageVC.view atIndex:0];
     }errorHandler:^(NSError *error){
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         NSLog(@"VCerror,%@",error);
         if (error != NULL) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"ccc" message:@"cccs" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"ccc" message:@"cccs" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
             [alert show];
         }
     }];
 }
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    [self backToPreviousViewAction:nil];
+}
+
+- (IBAction)backToPreviousViewAction:(id)sender {
+    [self.delegate loginFailedOperation];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 @end

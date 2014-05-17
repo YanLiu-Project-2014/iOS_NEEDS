@@ -8,16 +8,20 @@
 
 #import "MainpageViewController.h"
 
+#import "UIViewController+ECSlidingViewController.h"
+#import "MEDynamicTransition.h"
+#import "METransitions.h"
+
 @interface MainpageViewController (){
     BOOL chooseSearchTypeIsShow;
+    NSArray *needsData;
+    NSArray *providersData;
+    ProviderDetail *providerDetail;
 }
-@property (weak, nonatomic) IBOutlet UIButton *searchTypeBtn;
-@property (weak, nonatomic) IBOutlet UIView *chooseSearchTypeView;
-@property (weak, nonatomic) IBOutlet UIView *shadeView;
-- (IBAction)chooseSearchTypeAction:(id)sender;
-- (IBAction)clickChooseTypeAction:(id)sender;
+@property (nonatomic, strong) METransitions *transitions;
+@property (nonatomic, strong) UIPanGestureRecognizer *dynamicTransitionPanGesture;
 
-- (IBAction)firstAction:(id)sender;
+@property(nonatomic, readwrite) BOOL networkOperationIsDone;
 @end
 
 @implementation MainpageViewController
@@ -44,32 +48,57 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    if ([UIApplication sharedApplication].keyWindow.frame.size.height == 480) { // screen 3.5 inch or not?
-        [self drawContent_3_5];
-    }else{
-        [self drawContent_4];
-    }
+//    self.slidingViewController.anchorLeftPeekAmount = 300.f;
+//    self.slidingViewController.anchorLeftRevealAmount = 100.f;
+    
+//    self.slidingViewController.anchorRightPeekAmount = 300.f;
+    self.slidingViewController.anchorRightRevealAmount = 128.f;
+    
+//    self.clearsSelectionOnViewWillAppear = NO;
+    
+    self.transitions.dynamicTransition.slidingViewController = self.slidingViewController;
+    
+    self.slidingViewController.topViewAnchoredGesture = ECSlidingViewControllerAnchoredGestureTapping | ECSlidingViewControllerAnchoredGesturePanning;
+    self.slidingViewController.customAnchoredGestures = @[];
+    [self.navigationController.view removeGestureRecognizer:self.dynamicTransitionPanGesture];
+    [self.navigationController.view addGestureRecognizer:self.slidingViewController.panGesture];
+
+
+    
+    NSLog(@"test en ... %@",NSLocalizedString(@"str", nil));
+    [self getDataFromRemoteServer];
     
 }
 
-/**
- *  3.5 inch windows. Main character: height(480-46-60 = 374), width(320), x(0), y(60)
- *
- *  @since 1.0
- */
-- (void)drawContent_3_5{
-    // draw two seprator lines. (374/3 = 124)
-    UIView *firstLine = [[UIView alloc] initWithFrame:CGRectMake(0, 124+60, 320, 1)];
-    [firstLine.layer setBackgroundColor:[[UIColor grayColor] CGColor]];
+- (UIPanGestureRecognizer *)dynamicTransitionPanGesture {
+    if (_dynamicTransitionPanGesture) return _dynamicTransitionPanGesture;
+    
+    _dynamicTransitionPanGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self.transitions.dynamicTransition action:@selector(handlePanGesture:)];
+    
+    return _dynamicTransitionPanGesture;
 }
 
-/**
- *  4 inch windows. Main character: height(568-46-60), width(320), x(0), y(60)
- *
- *  @since 1.0
- */
-- (void)drawContent_4{
-    
+- (void) getDataFromRemoteServer{
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    hud.labelText = @"正在加载数据...";
+    [AppDelegate.engine getSelectionInMainpage:@"" completionHandler:^(NSDictionary *resultsDictionary){
+        [MBProgressHUD hideAllHUDsForView:self.navigationController.view animated:YES];
+        needsData = [resultsDictionary objectForKey:@"NeedDetail"];
+//        providerDetail = [[resultsDictionary objectForKey:@"ProviderDetail"] objectAtIndex:0];
+        providersData = [resultsDictionary objectForKey:@"ProviderDetail"];
+        [self refreshView];
+    }errorHandler:^(NSError *error){
+        [MBProgressHUD hideAllHUDsForView:self.navigationController.view animated:YES];
+        NSLog(@"get error:%@",error);
+    }];
+}
+
+- (void) refreshView{
+    [self.tableView reloadData];
+    [self.providerTableView reloadData];
+//    self.providerName.text = [providerDetail name];
+//    self.providerGoodatLabel.text = [providerDetail advantage];
+//    self.rateLabel.text = [NSString stringWithFormat:@"好评率：%@",[providerDetail rate_count]];
 }
 
 - (void)didReceiveMemoryWarning
@@ -78,7 +107,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -86,63 +115,74 @@
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-}
-*/
-
-- (IBAction)searchField_EditingDidBegin:(id)sender {
-    self.shadeView.hidden = NO;
-}
-
-- (IBAction)searchField_DidEndOnExit:(id)sender {
-    self.shadeView.hidden = YES;
-    [sender resignFirstResponder];
+    if ([segue.identifier isEqualToString:@"segueMainpageToNeedDetail"]) {
+        [segue.destinationViewController setNeedID:[[needsData objectAtIndex:[self.tableView indexPathForSelectedRow].row] pk_id]];
+    }else if ([segue.identifier isEqualToString:@"segueMainpageToNeedTypes"]){
+        [segue.destinationViewController setParentType:0];
+    }
 }
 
-- (IBAction)shadeView_TouchDown:(id)sender {
-    [self searchField_DidEndOnExit:self.search_TextField];
+
+- (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;//[needsData count];
 }
-- (IBAction)chooseSearchTypeAction:(id)sender {
-    if (chooseSearchTypeIsShow) {
-        self.chooseSearchTypeView.hidden = YES;
-        chooseSearchTypeIsShow = NO;
+
+- (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    if (tableView == self.tableView) {
+        return [needsData count];//[[needsData objectAtIndex:section] count];
     }else{
-        self.chooseSearchTypeView.hidden = NO;
-        chooseSearchTypeIsShow = YES;
+        NSLog(@"我找到了%d条数据", [providersData count]);
+        return [providersData count];
     }
 }
-- (IBAction)testActrion:(id)sender {
-    self.searchTypeBtn.titleLabel.text = @"服务商";
-}
 
-- (IBAction)clickChooseTypeAction:(id)sender {
-    switch (((UIButton*)sender).tag) {
-        case 1: // click 需求
-            NSLog(@"需求");
-            //            self.searchTypeBtn.titleLabel.text = @"需求";
-            [self.searchTypeBtn setTitle:@"需求" forState:UIControlStateNormal];
-            break;
-        case 2:
-            NSLog(@"服务");
-//            self.searchTypeBtn.titleLabel.text = @"";
-            [self.searchTypeBtn setTitle:@"服务" forState:UIControlStateNormal];
-            break;
-        case 3:
-            NSLog(@"服务商");
-//            self.searchTypeBtn.titleLabel.text = @"";
-            [self.searchTypeBtn setTitle:@"服务商" forState:UIControlStateNormal];
-            break;
-        default:
-//            self.searchTypeBtn.titleLabel.text = @"服务商";
-            NSLog(@"默认");
-            break;
+- (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (tableView == self.tableView) {
+        static NSString *identify = @"ttttt";
+        UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:identify];
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identify];
+            UIView *seperatedView = [[UIView alloc] initWithFrame:CGRectMake(10, cell.frame.size.height-1, cell.frame.size.width-20, 1)];
+            [seperatedView setBackgroundColor:[UIColor lightGrayColor]];
+            [cell addSubview:seperatedView];
+        }
+        cell.textLabel.text = [[needsData objectAtIndex:indexPath.row] name];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"￥%@ %@", [[needsData objectAtIndex:indexPath.row] budget], [[needsData objectAtIndex:indexPath.row] description]];
+        return cell;
+    }else{
+        static NSString *providerIdentifier = @"sssssss";
+        UINib *nib = [UINib nibWithNibName:@"ProviderDescriptionCell" bundle:nil];
+        [self.providerTableView registerNib:nib forCellReuseIdentifier:providerIdentifier];
+        ProviderDescriptionCell *cell = [self.providerTableView dequeueReusableCellWithIdentifier:providerIdentifier];
+        [cell initCellWithName:[[providersData objectAtIndex:indexPath.row] name] rateText:[[providersData objectAtIndex:indexPath.row] rate_count] advantageText:[[providersData objectAtIndex:indexPath.row] advantage]];
+        return cell;
     }
-    self.chooseSearchTypeView.hidden = YES;
-    chooseSearchTypeIsShow = NO;
-    NSLog(@"tag%d",[(UIButton*)sender tag]);
-    
 }
 
-- (IBAction)firstAction:(id)sender {
-    NSLog(@"click first...");
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (tableView == self.tableView) {
+        [self performSegueWithIdentifier:@"segueMainpageToNeedDetail" sender:self];
+        [self performSelector:@selector(delete:) withObject:nil afterDelay:0.5];
+    }else{//segueMainpageToProviderDetail
+        [self performSegueWithIdentifier:@"segueMainpageToProviderDetail" sender:self];
+        [self performSelector:@selector(deleteProviderCell:) withObject:nil afterDelay:0.5];
+    }
+}
+
+- (void) delete:(id)sender{
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
+}
+
+- (void) deleteProviderCell:(id)sender{
+    [self.providerTableView deselectRowAtIndexPath:[self.providerTableView indexPathForSelectedRow] animated:YES];
+}
+
+- (IBAction)refreshMainpageAction:(id)sender {
+    [self getDataFromRemoteServer];
+    NSLog(@"click");
+}
+
+- (IBAction)menuButtonTapped:(id)sender {
+    [self.slidingViewController anchorTopViewToRightAnimated:YES];
 }
 @end

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>NEEDTypes</key>
+	<array>
+		<string>桌面Windows应用</string>
+		<string>桌面Mac应用</string>
+		<string>桌面Linux应用</string>
+		<string>桌面Web应用</string>
+		<string>移动Android应用</string>
+		<string>移动iOS应用</string>
+		<string>移动Web应用</string>
+		<string>嵌入式软件开发</string>
+		<string>人工智能软件</string>
+		<string>其它</string>
+	</array>
+</dict>
+</plist>

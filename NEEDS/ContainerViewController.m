@@ -37,6 +37,8 @@
     
     // 创建底部tab
     MainTabbarView *tabbar=[[MainTabbarView alloc]initWithFrame:self.view.frame];
+    [tabbar showCustomerTabView];
+    [tabbar showProviderTabView];
     tabbar.delegate=self;
     [self.view addSubview:tabbar];
     
@@ -47,24 +49,31 @@
     
     // 初始化子view controller 并添加到子viewcontroller里面
     self.firstViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Mainpage"];
+    self.firstViewController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-46);
     [self addChildViewController:self.firstViewController]; // 添加主页
     
     self.secondViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"ReleaseRequirements"];
+    self.secondViewController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-46);
     [self addChildViewController:self.secondViewController]; // 添加发布需求
     
     self.thirdViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"NeedMarket"];
+    self.thirdViewController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-46);
     [self addChildViewController:self.thirdViewController]; // 添加需求市场
     
     self.fourthViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"MyOrder"];
+    self.fourthViewController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-46);
     [self addChildViewController:self.fourthViewController]; // 添加我的订单
     
     self.fifthViewContrller = [self.storyboard instantiateViewControllerWithIdentifier:@"UserCenter"];
+    self.fifthViewContrller.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-46);
     [self addChildViewController:self.fifthViewContrller]; // 添加用户中心
     
     // 显示第一个VC中的view， 即主页内容
-    [self.contentView addSubview:self.firstViewController.view];
+    [self.view addSubview:self.firstViewController.view];
+    NSLog(@"first frame, x:%f,y:%f,w:%f,h:%f",self.firstViewController.view.frame.origin.x, self.firstViewController.view.frame.origin.y, self.firstViewController.view.frame.size.width,self.firstViewController.view.frame.size.height);
     self.g_flag = 1;
     self.currentViewController = self.firstViewController;
+//    self.currentViewController = self.secondViewController;
     
 }
 

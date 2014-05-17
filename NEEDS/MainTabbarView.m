@@ -11,7 +11,7 @@
 @implementation MainTabbarView
 
 enum barsize{
-    tabitem_width=64,//80,
+    tabitem_width=80,//64,//80, 320/4=80
     tabitem_hight=44,//44,
     tab_hight=46,//56,//46,
     tab_width=320,
@@ -19,7 +19,7 @@ enum barsize{
     
     img_hight=30,//38,
     img_width=23,
-    img_x=17,//27,
+    img_x=28,//17,//27, (80-23)/2=28
     img_y=7
 };
 
@@ -62,7 +62,7 @@ enum barsize{
         [self.firstBtn addSubview:btnImgView];
         ((UIImageView*)self.firstBtn.subviews[0]).highlighted = YES;
         
-        //second
+        //second  mainpage_tabicon_requirement mainpage_tabicon_delivery
         btnImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mainpage_tabicon_delivery"] highlightedImage:[UIImage imageNamed:@"mainpage_tabicon_delivery_h"]];
         btnImgView.frame = CGRectMake(img_x, img_y, img_width, img_hight);
         self.secondBtn=[UIButton buttonWithType:UIButtonTypeCustom];
@@ -72,7 +72,7 @@ enum barsize{
         [self.secondBtn addSubview:btnImgView];
         
         //third
-        btnImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mainpage_tabicon_requirement"] highlightedImage:[UIImage imageNamed:@"mainpage_tabicon_requirement_h"]];
+        btnImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mainpage_tabicon_myorder"] highlightedImage:[UIImage imageNamed:@"mainpage_tabicon_requirement_h"]];
         btnImgView.frame = CGRectMake(img_x, img_y, img_width, img_hight);
         self.thirdBtn=[UIButton buttonWithType:UIButtonTypeCustom];
         [self.thirdBtn setFrame:CGRectMake(tabitem_width*2, other_offtop, tabitem_width, tabitem_hight)];
@@ -81,7 +81,7 @@ enum barsize{
         [self.thirdBtn addSubview:btnImgView];
         
         //fourth
-        btnImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mainpage_tabicon_myorder"] highlightedImage:[UIImage imageNamed:@"mainpage_tabicon_myorder_h"]];
+        btnImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mainpage_tabicon_usercenter"] highlightedImage:[UIImage imageNamed:@"mainpage_tabicon_myorder_h"]];
         btnImgView.frame = CGRectMake(img_x, img_y, img_width, img_hight);
         self.fourthBtn=[UIButton buttonWithType:UIButtonTypeCustom];
         [self.fourthBtn setFrame:CGRectMake(tabitem_width*3, other_offtop, tabitem_width, tabitem_hight)];
@@ -112,6 +112,20 @@ enum barsize{
         [self addSubview:self.backBtn];
     }
     return self;
+}
+
+-(void)showCustomerTabView{
+    [self.secondBtn.subviews[0] removeFromSuperview];
+    UIImageView *btnImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mainpage_tabicon_delivery"] highlightedImage:[UIImage imageNamed:@"mainpage_tabicon_delivery"]];
+    btnImgView.frame = CGRectMake(img_x, img_y, img_width, img_hight);
+    [self.secondBtn addSubview:btnImgView];
+}
+
+-(void)showProviderTabView{
+    [self.secondBtn.subviews[0] removeFromSuperview];
+    UIImageView *btnImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mainpage_tabicon_requirement"] highlightedImage:[UIImage imageNamed:@"mainpage_tabicon_requirement"]];
+    btnImgView.frame = CGRectMake(img_x, img_y, img_width, img_hight);
+    [self.secondBtn addSubview:btnImgView];
 }
 
 

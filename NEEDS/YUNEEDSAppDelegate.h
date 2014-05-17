@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "NeedsEngine.h"
+#import "YUNEEDSConfig.h"
 
 #define AppDelegate ((YUNEEDSAppDelegate *)[UIApplication sharedApplication].delegate)
 

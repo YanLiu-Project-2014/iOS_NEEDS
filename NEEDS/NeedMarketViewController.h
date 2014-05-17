@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UIViewController+ECSlidingViewController.h"
 
 @interface NeedMarketViewController : UIViewController
+- (IBAction)backToMenuAction:(id)sender;
 
 @end

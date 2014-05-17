@@ -7,16 +7,26 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MBProgressHUD.h"
+#import "YUNEEDSAppDelegate.h"
+#import "ECSlidingViewController.h"
+#import "NeedDetailViewController.h"
+#import "ProviderDescriptionCell.h"
 
-@interface MainpageViewController : UIViewController
+@interface MainpageViewController : UIViewController<ECSlidingViewControllerDelegate, UITableViewDelegate, UITableViewDataSource>
 
-@property(nonatomic,strong) UIButton *messageButton;
-@property(nonatomic,strong) UIButton *searchButton;
-@property (weak, nonatomic) IBOutlet UITextField *search_TextField;
+@property (weak, nonatomic) IBOutlet UIButton *messageButton;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UITableView *providerTableView;
+
+@property (weak, nonatomic) IBOutlet UILabel *providerName;
+@property (weak, nonatomic) IBOutlet UILabel *rateLabel;
+@property (weak, nonatomic) IBOutlet UITextView *providerGoodatLabel;
 
 
-- (IBAction)searchField_EditingDidBegin:(id)sender;
-- (IBAction)searchField_DidEndOnExit:(id)sender;
-- (IBAction)shadeView_TouchDown:(id)sender;
+- (IBAction)refreshMainpageAction:(id)sender;
+
+- (IBAction)menuButtonTapped:(id)sender;
+
 
 @end

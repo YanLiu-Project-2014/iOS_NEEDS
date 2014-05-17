@@ -13,6 +13,9 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    // 读取本地数据
+    [[YUNEEDSConfig getSharedConfig] readUserFromLocale];
+    
     self.engine = [[NeedsEngine alloc] initWithDefaultSettings];
     return YES;
 }

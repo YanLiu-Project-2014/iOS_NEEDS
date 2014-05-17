@@ -7,14 +7,19 @@
 //
 
 #import "MKNetworkEngine.h"
+#import "YUNEEDSConfig.h"
 #import "JSONModel.h"
 #import "User.h"
+#import "NeedDetail.h"
+#import "ProviderDetail.h"
+#import "NeedsListItem.h"
 
 #define kAccessTokenDefaultsKey @"ACCESS_TOKEN"
 
 typedef void (^VoidBlock)(void);
 typedef void (^ModelBlock)(JSONModel* aModelBaseObject);
 typedef void (^ArrayBlock)(NSMutableArray* listOfModelBaseObjects);
+typedef void (^DictionaryBlock)(NSDictionary* dictionaryOfModelBaseObjects);
 typedef void (^ErrorBlock)(NSError* engineError);
 
 @interface NeedsEngine : MKNetworkEngine
@@ -40,7 +45,7 @@ typedef void (^ErrorBlock)(NSError* engineError);
  *
  *  @since 1.0
  */
--(MKNetworkOperation*)doLogin:(NSString*)name password:(NSString *)pwd completionHandler:(ModelBlock)completion errorHandler:(ErrorBlock)error;
+-(MKNetworkOperation*)doLogin:(NSString*)name password:(NSString *)pwd userType:(int)mUserType completionHandler:(ModelBlock)completion errorHandler:(ErrorBlock)error;
 
 /**
  *  Search results in mainpage.
@@ -68,6 +73,12 @@ typedef void (^ErrorBlock)(NSError* engineError);
  *
  *  @since 1.0
  */
--(MKNetworkOperation*)getSelectionInMainpage:(NSString*)type completionHandler:(ArrayBlock)_completionHandler errorHandler:(ErrorBlock)_errorHandler;
+-(MKNetworkOperation*)getSelectionInMainpage:(NSString*)type completionHandler:(DictionaryBlock)_completionHandler errorHandler:(ErrorBlock)_errorHandler;
 
+
+- (MKNetworkOperation *)fetchNeedsListByCategory:(NSString *)category offSet:(int)mOffset completionHandler:(ArrayBlock)mCompletionHandler errorHandler:(ErrorBlock)mErrorHandler;
+
+- (MKNetworkOperation *)getNeedDetailById:(NSString *)id completionHandler:(ModelBlock)mCompletionHandler errorHandler:(ErrorBlock)mErrorHandler;
+
+- (MKNetworkOperation *)doBidWithNeed:(NSString *)needId  content:(NSString*)mContent completionHandler:(VoidBlock)mCompletionHandler errorHandler:(ErrorBlock)mErrorhandler;
 @end

@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "YUNEEDSConfig.h"
+#import "UserCenterNavigationViewController.h"
 
-@interface UserCenterViewCtroller : UIViewController
+@interface UserCenterViewCtroller : UIViewController<UIAlertViewDelegate>
+
+- (IBAction)backToMenuAction:(id)sender;
+- (IBAction)logoutButtonTouchUpInside:(id)sender;
 
 @end

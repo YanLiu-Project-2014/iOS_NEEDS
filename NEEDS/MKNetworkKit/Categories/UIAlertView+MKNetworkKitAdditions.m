@@ -29,10 +29,11 @@
 
 +(UIAlertView*) showWithError:(NSError*) networkError {
 
+    NSLog(@"错误详情%@",networkError);
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[networkError localizedDescription]
                                                     message:[networkError localizedRecoverySuggestion]
                                                    delegate:nil
-                                          cancelButtonTitle:NSLocalizedString(@"Dismiss", @"")
+                                          cancelButtonTitle:NSLocalizedString(@"确定", @"")
                                           otherButtonTitles:nil];
     [alert show];
     return alert;

@@ -8,7 +8,12 @@
 
 #import "MyOrderViewController.h"
 
-@interface MyOrderViewController ()
+@interface MyOrderViewController (){
+    NSArray *data; // 表格会显示的数据
+    NSArray *data1; // 第一个tab对应的表格的数据
+    NSArray *data2;
+    NSArray *data3;
+}
 
 @end
 
@@ -27,6 +32,15 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    if (self.userType == 2) { // 服务商
+        [self.firstTabButton setTitle:@"竞标中" forState:UIControlStateNormal];
+        [self.secondTabButton setTitle:@"开发中" forState:UIControlStateNormal];
+        [self.thirdTabButton setTitle:@"已完成" forState:UIControlStateNormal];
+    }else{ // 需求发布者
+        [self.firstTabButton setTitle:@"未托管" forState:UIControlStateNormal];
+        [self.secondTabButton setTitle:@"开发中" forState:UIControlStateNormal];
+        [self.thirdTabButton setTitle:@"已完成" forState:UIControlStateNormal];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -46,4 +60,10 @@
 }
 */
 
+- (IBAction)tabClickAction:(id)sender {
+}
+
+- (IBAction)backToMenuAction:(id)sender {
+    [self.slidingViewController anchorTopViewToRightAnimated:YES];
+}
 @end

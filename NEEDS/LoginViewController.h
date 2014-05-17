@@ -6,15 +6,34 @@
 //  Copyright (c) 2014 Jackyu. All rights reserved.
 //
 
+
+@protocol LoginResultOperationDelegate <NSObject>
+
+- (void) loginSuccessedOperation;
+
+- (void) loginFailedOperation;
+
+@end
+
+
 #import <UIKit/UIKit.h>
 #import "YUNEEDSAppDelegate.h"
+#import "YUNEEDSConfig.h"
 #import "MKNetworkKit/MKNetworkEngine.h"
+#import "MainMenuViewController.h"
 #import "MBProgressHUD.h"
-#import "MainpageViewController.h"
 
-@interface LoginViewController : UIViewController
+@interface LoginViewController : UIViewController<UIAlertViewDelegate>
+
+@property(nonatomic, strong) id<LoginResultOperationDelegate> delegate;
+
+
+@property (weak, nonatomic) IBOutlet UISegmentedControl *userTypeSeguementControl;
 @property (weak, nonatomic) IBOutlet UITextField *login_tf_name;
 @property (weak, nonatomic) IBOutlet UITextField *login_tf_pwd;
+
+
+- (IBAction)backToPreviousViewAction:(id)sender;
 
 /**
  *  When user touch background, keyboard will be hidden.
@@ -66,10 +85,11 @@
  *
  *  @param name     user name.
  *  @param pwd      user password.
+ *  @param mUserType // 用户类型： 1-需求发布者 2-服务提供商 0-未设置用户类型
  *
  *  @return user object.
  *
  *  @since 1.0
  */
-- (void)DoLogin:(NSString*)name password:(NSString*)pwd;
+- (void)DoLogin:(NSString*)name password:(NSString*)pwd userType:(int)mUserType;
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "ReleaseRequirementsViewController.h"
+#import "UIViewController+ECSlidingViewController.h"
 
 @interface ReleaseRequirementsViewController ()
 
@@ -46,4 +47,7 @@
 }
 */
 
+- (IBAction)menuButtonTapped:(id)sender {
+    [self.slidingViewController anchorTopViewToRightAnimated:YES];
+}
 @end

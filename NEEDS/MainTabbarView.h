@@ -31,5 +31,7 @@
 @property(nonatomic,strong) UIButton *backBtn;
 @property(nonatomic,strong) UIButton *shadeBtn;
 
+-(void)showCustomerTabView;
+-(void)showProviderTabView;
 -(void)buttonClickAction:(id)sender;
 @end

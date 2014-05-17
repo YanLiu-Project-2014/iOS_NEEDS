@@ -7,6 +7,7 @@
 //
 
 #import "UserCenterViewCtroller.h"
+#import "UIViewController+ECSlidingViewController.h"
 
 @interface UserCenterViewCtroller ()
 
@@ -46,4 +47,20 @@
 }
 */
 
+- (IBAction)backToMenuAction:(id)sender {
+    [self.slidingViewController anchorTopViewToRightAnimated:YES];
+}
+
+- (IBAction)logoutButtonTouchUpInside:(id)sender {
+    
+    UIAlertView *confirmAlert = [[UIAlertView alloc] initWithTitle:@"确认提示框" message:@"是否确认登陆" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"继续退出", nil];
+    [confirmAlert show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex >= 1) {
+        [[YUNEEDSConfig getSharedConfig] doLogoutConfig];
+        [((UserCenterNavigationViewController *)self.navigationController).logoutDelegate logoutSuccessOperatino];
+    }
+}
 @end

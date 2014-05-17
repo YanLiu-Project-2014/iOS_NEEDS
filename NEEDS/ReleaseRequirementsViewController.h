@@ -10,4 +10,5 @@
 
 @interface ReleaseRequirementsViewController : UIViewController
 
+- (IBAction)menuButtonTapped:(id)sender;
 @end
