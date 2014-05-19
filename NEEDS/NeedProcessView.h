@@ -9,8 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface NeedProcessView : UIView
-@property (weak, nonatomic) IBOutlet UIImageView *test;
 @property (strong, nonatomic) IBOutletCollection(UIImageView) NSArray *nodeCollection;
+@property (strong, nonatomic) IBOutletCollection(UIImageView) NSArray *imgeView;
 
 - (void)testFunction;
 

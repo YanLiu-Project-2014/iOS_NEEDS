@@ -70,7 +70,6 @@
     
     // 显示第一个VC中的view， 即主页内容
     [self.view addSubview:self.firstViewController.view];
-    NSLog(@"first frame, x:%f,y:%f,w:%f,h:%f",self.firstViewController.view.frame.origin.x, self.firstViewController.view.frame.origin.y, self.firstViewController.view.frame.size.width,self.firstViewController.view.frame.size.height);
     self.g_flag = 1;
     self.currentViewController = self.firstViewController;
 //    self.currentViewController = self.secondViewController;

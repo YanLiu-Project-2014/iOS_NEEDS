@@ -10,7 +10,10 @@
 #import "YUNEEDSConfig.h"
 #import "UserCenterNavigationViewController.h"
 
-@interface UserCenterViewCtroller : UIViewController<UIAlertViewDelegate>
+@interface UserCenterViewCtroller : UIViewController<UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate>
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *creditLabel;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 - (IBAction)backToMenuAction:(id)sender;
 - (IBAction)logoutButtonTouchUpInside:(id)sender;

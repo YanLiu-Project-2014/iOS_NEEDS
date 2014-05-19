@@ -64,7 +64,6 @@ static int applicationUserType = 0; // 用户类型： 1-需求发布者 2-服�
 }
 
 - (void)saveUserToLocale{
-    NSLog(@"保存到本地application user:%@",[applicationUser description]);
 //    [[NSUserDefaults standardUserDefaults] setObject:[User formatToString:applicationUser] forKey:@"AppUser"];
     
     if (applicationUserType != 0) {
@@ -77,12 +76,11 @@ static int applicationUserType = 0; // 用户类型： 1-需求发布者 2-服�
     [[NSUserDefaults standardUserDefaults] setInteger:applicationUserType forKey:@"AppUserType"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
-    NSLog(@"测试读取。。。");
     [self readUserFromLocale];
 }
 
 - (void)readUserFromLocale{
-    applicationUserType = [[NSUserDefaults standardUserDefaults] integerForKey:@"AppUserType"];
+    applicationUserType = (int)[[NSUserDefaults standardUserDefaults] integerForKey:@"AppUserType"];
     if (applicationUserType != 0) {
         applicationUser = [User alloc];
         [applicationUser setSid:[[NSUserDefaults standardUserDefaults] objectForKey:@"sid"]];
@@ -92,9 +90,6 @@ static int applicationUserType = 0; // 用户类型： 1-需求发布者 2-服�
     }else{
         applicationUser = nil;
     }
-    
-    NSLog(@"从本地读取数据%@",[applicationUser description]);
-    NSLog(@"从本地读取类型：%d", applicationUserType);
     
 }
 

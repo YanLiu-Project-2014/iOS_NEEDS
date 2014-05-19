@@ -10,31 +10,31 @@
             <rect key="frame" x="0.0" y="0.0" width="280" height="106"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="process_halfNode.png" translatesAutoresizingMaskIntoConstraints="NO" id="7sK-zv-Bqa">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7sK-zv-Bqa">
                     <rect key="frame" x="0.0" y="85" width="15" height="15"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="process_fullNode.png" translatesAutoresizingMaskIntoConstraints="NO" id="dI5-bL-3GH">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dI5-bL-3GH">
                     <rect key="frame" x="40" y="85" width="15" height="15"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="process_emptyNode.png" translatesAutoresizingMaskIntoConstraints="NO" id="OFZ-IM-PCK">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OFZ-IM-PCK">
                     <rect key="frame" x="80" y="85" width="15" height="15"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="process_emptyNode.png" translatesAutoresizingMaskIntoConstraints="NO" id="iqW-lY-Wku">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iqW-lY-Wku">
                     <rect key="frame" x="120" y="85" width="15" height="15"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="process_emptyNode.png" translatesAutoresizingMaskIntoConstraints="NO" id="b8h-KA-hgY">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b8h-KA-hgY">
                     <rect key="frame" x="160" y="85" width="15" height="15"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="process_emptyNode.png" translatesAutoresizingMaskIntoConstraints="NO" id="Vao-Zn-GUb">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vao-Zn-GUb">
                     <rect key="frame" x="200" y="85" width="15" height="15"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="process_emptyNode.png" translatesAutoresizingMaskIntoConstraints="NO" id="mQh-4n-oN8">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mQh-4n-oN8">
                     <rect key="frame" x="240" y="85" width="15" height="15"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 </imageView>
@@ -93,7 +93,6 @@
             </subviews>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="test" destination="DOw-1L-ohT" id="DZJ-xl-bfl"/>
                 <outletCollection property="nodeCollection" destination="7sK-zv-Bqa" id="ZbC-8X-qC0"/>
                 <outletCollection property="nodeCollection" destination="dI5-bL-3GH" id="m4F-BX-XS7"/>
                 <outletCollection property="nodeCollection" destination="OFZ-IM-PCK" id="VHs-9N-Dno"/>
@@ -101,14 +100,18 @@
                 <outletCollection property="nodeCollection" destination="b8h-KA-hgY" id="wTN-lv-GUe"/>
                 <outletCollection property="nodeCollection" destination="Vao-Zn-GUb" id="Pan-j2-AeU"/>
                 <outletCollection property="nodeCollection" destination="mQh-4n-oN8" id="kUq-is-5Zl"/>
+                <outletCollection property="imgeView" destination="4kl-CS-LMh" id="7Xv-si-8VT"/>
+                <outletCollection property="imgeView" destination="zY5-4i-w4d" id="RPu-XE-mnf"/>
+                <outletCollection property="imgeView" destination="WQa-8f-lVf" id="xb0-g0-8tj"/>
+                <outletCollection property="imgeView" destination="Ddh-cc-1d4" id="isR-bB-fct"/>
+                <outletCollection property="imgeView" destination="DOw-1L-ohT" id="Upw-nZ-zh2"/>
+                <outletCollection property="imgeView" destination="6lH-XI-Sux" id="PWg-m7-Pl1"/>
+                <outletCollection property="imgeView" destination="jyf-h7-0dF" id="Qb2-Sh-M24"/>
             </connections>
         </view>
     </objects>
     <resources>
         <image name="process_connection.png" width="41" height="3"/>
-        <image name="process_emptyNode.png" width="22" height="22"/>
-        <image name="process_fullNode.png" width="22" height="22"/>
-        <image name="process_halfNode.png" width="22" height="22"/>
         <image name="process_icon_1.png" width="58" height="57"/>
         <image name="process_icon_2.png" width="71" height="70"/>
         <image name="process_icon_3.png" width="72" height="72"/>

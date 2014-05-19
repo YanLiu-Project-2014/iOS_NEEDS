@@ -22,6 +22,10 @@
 @property(nonatomic, strong) NSString *user_name;       //发布者的名字
 @property(nonatomic, strong) NSString *bid_count;       //竞标数
 
+// added by jackyu
+@property(nonatomic, strong) NSString *fk_publisher;    //发布者
+@property(nonatomic, strong) NSString *fk_provider;     //服务商
+
 
 - (NSString *) getStateDescription;
 

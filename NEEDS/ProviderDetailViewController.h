@@ -8,7 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "ProviderView.h"
+#import "YUNEEDSAppDelegate.h"
+#import "YUNEEDSConfig.h"
+#import "MBProgressHUD.h"
+#import "UIAlertView+MKNetworkKitAdditions.h"
 
 @interface ProviderDetailViewController : UIViewController
+
+// 数据， 跳转前设置完全
+@property(strong, nonatomic) NSString *providerId;
 
 @end

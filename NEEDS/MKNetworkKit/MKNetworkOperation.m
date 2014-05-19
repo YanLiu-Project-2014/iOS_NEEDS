@@ -1367,7 +1367,6 @@ totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite {
     [self operationFailedWithError:[NSError errorWithDomain:NSURLErrorDomain
                                                        code:self.response.statusCode
                                                    userInfo:self.response.allHeaderFields]];
-      NSLog(@"jackyu, fields:%@",self.response.allHeaderFields);
   }
   [self endBackgroundTask];
   

@@ -130,7 +130,7 @@ enum barsize{
 
 
 -(void)callButtonAction:(UIButton *)sender{
-    int value=sender.tag;
+    int value=(int)sender.tag;
     if (value==1) {
         [self.delegate firstBtnClick];
     }
@@ -156,7 +156,7 @@ int g_selectedTag=1;
     if(g_selectedTag==btn.tag)
         return;
     else
-        g_selectedTag=btn.tag;
+        g_selectedTag=(int)btn.tag;
     
     
     if (self.firstBtn.tag!=btn.tag) {

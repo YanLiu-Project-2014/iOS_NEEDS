@@ -29,7 +29,7 @@
 
 +(UIAlertView*) showWithError:(NSError*) networkError {
 
-    NSLog(@"错误详情%@",networkError);
+//    NSLog(@"错误详情%@",networkError);
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[networkError localizedDescription]
                                                     message:[networkError localizedRecoverySuggestion]
                                                    delegate:nil

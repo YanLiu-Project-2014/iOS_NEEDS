@@ -8,7 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "User.h"
-#define GlobalColor [UIColor colorWithRed:78/255.f green:33/255.f blue:117/255.f alpha:0.8f]
+#define GlobalColor [UIColor colorWithRed:78/255.f green:33/255.f blue:117/255.f alpha:1.0f]
+#define GlobalColorAlpha [UIColor colorWithRed:78/255.f green:33/255.f blue:117/255.f alpha:0.8f]
 
 @interface YUNEEDSConfig : NSObject
 

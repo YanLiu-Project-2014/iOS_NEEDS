@@ -90,7 +90,6 @@ static NSString *placeHolderString = @"在此填写竞标理由~";
 }
 
 - (IBAction)cancelAction:(id)sender {
-    NSLog(@"submit button click...");
     [self backgroundTouchDown:nil];
 }
 

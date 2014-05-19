@@ -28,4 +28,12 @@
 }
 */
 
+- (void)initWithProvider:(ProviderDetail *)provider{
+    self.nameLabel.text = [provider name];
+    self.descriptionInfo.text = [provider introduce];
+    self.serviceField.text = [provider advantage];
+    self.rateLabel.text = [provider rate_count];
+    
+}
+
 @end

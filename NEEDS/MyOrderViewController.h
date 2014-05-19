@@ -8,15 +8,22 @@
 
 #import <UIKit/UIKit.h>
 #import "UIViewController+ECSlidingViewController.h"
+#import "MyOrderNavigationController.h"
+#import "YUNEEDSAppDelegate.h"
+#import "YUNEEDSConfig.h"
+#import "MyOrderDetail.h"
+#import "MJRefresh.h"
+#import "MBProgressHUD.h"
+#import "MyOrderDetailViewController.h"
 
-@interface MyOrderViewController : UIViewController
-
-@property (nonatomic, readwrite) int userType; // 要显示“我的订单”的用户类型 需要再跳转前设置好， 默认需求发布者.(1:需求发布者， 2：服务商)
+@interface MyOrderViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, MJRefreshBaseViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *firstTabButton;
 @property (weak, nonatomic) IBOutlet UIButton *secondTabButton;
 @property (weak, nonatomic) IBOutlet UIButton *thirdTabButton;
-@property (weak, nonatomic) IBOutlet UIView *tabIndicator;
+@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *tabButtons;
+
+@property (strong, nonatomic) UIView *tabIndicator;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 - (IBAction)tabClickAction:(id)sender;

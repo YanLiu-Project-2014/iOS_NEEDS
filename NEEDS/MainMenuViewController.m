@@ -177,6 +177,7 @@ static NSArray *providerData;
             if (![self doAuth:indexPath]){
                 return;
             }else{
+                [((MyOrderNavigationController*)self.thirdViewConroller) setUserType:[[YUNEEDSConfig getSharedConfig] getUserType]];
                 self.slidingViewController.topViewController = self.thirdViewConroller;
             }
             break;
@@ -231,7 +232,6 @@ static NSArray *providerData;
 }
 
 - (void) loginFailedOperation{
-    NSLog(@"bakc...");
     [self backMenuSelectionHighlight];
 }
 

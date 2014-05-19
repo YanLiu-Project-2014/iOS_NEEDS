@@ -65,7 +65,7 @@
 - (IBAction)UIButton_login_TouchUpInside:(id)sender {
     // check whether user name and pwd is null.
     if (!([self.login_tf_name.text isEqualToString:@""] || [self.login_tf_pwd.text isEqualToString:@""])) {
-        [self DoLogin:self.login_tf_name.text password:self.login_tf_pwd.text userType:([self.userTypeSeguementControl selectedSegmentIndex]+1)];
+        [self DoLogin:self.login_tf_name.text password:self.login_tf_pwd.text userType:((int)[self.userTypeSeguementControl selectedSegmentIndex]+1)];
     }else{
         NSString *alertStr;
         if ([self.login_tf_name.text isEqualToString:@""]) {
@@ -89,7 +89,6 @@
     self.progressHUD = nil;
     self.loginOperation = [AppDelegate.engine doLogin:name password:pwd userType:mUserType completionHandler:^(JSONModel *user){
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-        NSLog(@"user:%@",[user description]);
         [[YUNEEDSConfig getSharedConfig] saveUser:(User *)user userType:mUserType];
         [[YUNEEDSConfig getSharedConfig] saveUserToLocale];
         
@@ -101,7 +100,6 @@
 //        [self.view insertSubview:MainpageVC.view atIndex:0];
     }errorHandler:^(NSError *error){
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-        NSLog(@"VCerror,%@",error);
         if (error != NULL) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"ccc" message:@"cccs" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
             [alert show];

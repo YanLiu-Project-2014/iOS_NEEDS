@@ -12,6 +12,7 @@
 #import "ECSlidingViewController.h"
 #import "NeedDetailViewController.h"
 #import "ProviderDescriptionCell.h"
+#import "ProviderDetailViewController.h"
 
 @interface MainpageViewController : UIViewController<ECSlidingViewControllerDelegate, UITableViewDelegate, UITableViewDataSource>
 

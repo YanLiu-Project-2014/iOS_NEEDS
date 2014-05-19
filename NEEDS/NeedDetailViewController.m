@@ -74,7 +74,6 @@
     self.bidViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"BidVC"];
     [self.bidViewController setBidDelegate:self];
     
-    NSLog(@"tt%f",self.view.frame.size.height);
 }
 
 - (void)getDataFromServer{
@@ -93,7 +92,7 @@
 - (void) drawView{
     // 第一层
     firstBlockView = [[UIView alloc] initWithFrame:CGRectMake(10, 10, 300, 30)];
-    [firstBlockView setBackgroundColor:GlobalColor];
+    [firstBlockView setBackgroundColor:GlobalColorAlpha];
     firstBlockTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(11, 4, 79, 21)];
     firstBlockTitleLabel.text = @"基本信息";
     firstBlockTitleLabel.font = titleFont;
@@ -148,7 +147,7 @@
     
     // 第二层
     secondBlockView = [[UIView alloc] initWithFrame:CGRectMake(10, 220, 300, 30)];
-    [secondBlockView setBackgroundColor:GlobalColor];
+    [secondBlockView setBackgroundColor:GlobalColorAlpha];
     secondBlockTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(11, 4, 79, 21)];
     secondBlockTitleLabel.text = @"交易详情";
     secondBlockTitleLabel.font = titleFont;
@@ -172,7 +171,7 @@
     
     // 第三层
     thirdBlockView = [[UIView alloc] initWithFrame:CGRectMake(10, 417, 300, 30)];
-    [thirdBlockView setBackgroundColor:GlobalColor];
+    [thirdBlockView setBackgroundColor:GlobalColorAlpha];
     thirdBlockTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(11, 4, 79, 21)];
     thirdBlockTitleLabel.text = @"具体要求";
     thirdBlockTitleLabel.font = titleFont;
@@ -196,10 +195,8 @@
     nameLabel.text = [data name];//@"防伪查询";
     
     if ([[data good] isEqualToString:@"1"]) {
-        NSLog(@"get good str%@",[data good]);
         [selectionIcon setImage:[UIImage imageNamed:@"selection_icon.png"]];
     }else{
-        NSLog(@"good str%@",[data good]);
     }
     
     stateLabel.text = [NSString stringWithFormat:@"状态:%@", [data getStateDescription]];

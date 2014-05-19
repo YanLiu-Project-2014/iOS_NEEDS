@@ -34,7 +34,6 @@
     NSString *path = [[NSBundle mainBundle] pathForResource:@"YUNEEDSConst" ofType:@"plist"];
     NSDictionary *configDictionary = [[NSDictionary alloc] initWithContentsOfFile:path];
     data = [[NSArray alloc] initWithArray:[configDictionary objectForKey:@"NEEDTypes"]];
-    NSLog(@"data:%@",data);
     
     // 控制导航条显示
     if (self.parentType == 0) { // 上一级页面为主页
@@ -117,7 +116,7 @@
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"segueNeedtypeToNeedsList"]) {
-        [segue.destinationViewController setNeedsCategory:[self.tableView indexPathForSelectedRow].row];
+        [segue.destinationViewController setNeedsCategory:(int)[self.tableView indexPathForSelectedRow].row];
     }
 }
 

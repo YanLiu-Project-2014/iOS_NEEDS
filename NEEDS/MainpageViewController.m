@@ -65,7 +65,6 @@
 
 
     
-    NSLog(@"test en ... %@",NSLocalizedString(@"str", nil));
     [self getDataFromRemoteServer];
     
 }
@@ -89,7 +88,7 @@
         [self refreshView];
     }errorHandler:^(NSError *error){
         [MBProgressHUD hideAllHUDsForView:self.navigationController.view animated:YES];
-        NSLog(@"get error:%@",error);
+        [UIAlertView showWithError:error];
     }];
 }
 
@@ -115,10 +114,12 @@
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    if ([segue.identifier isEqualToString:@"segueMainpageToNeedDetail"]) {
+    if ([segue.identifier isEqualToString:@"segueMainpageToNeedDetail"]) { 
         [segue.destinationViewController setNeedID:[[needsData objectAtIndex:[self.tableView indexPathForSelectedRow].row] pk_id]];
     }else if ([segue.identifier isEqualToString:@"segueMainpageToNeedTypes"]){
         [segue.destinationViewController setParentType:0];
+    }else if ([segue.identifier isEqualToString:@"segueMainpageToProviderDetail"]){
+        [segue.destinationViewController setProviderId:((ProviderDetail*)[providersData objectAtIndex:[self.providerTableView indexPathForSelectedRow].row]).pk_id];
     }
 }
 
@@ -131,7 +132,6 @@
     if (tableView == self.tableView) {
         return [needsData count];//[[needsData objectAtIndex:section] count];
     }else{
-        NSLog(@"我找到了%d条数据", [providersData count]);
         return [providersData count];
     }
 }
@@ -179,7 +179,6 @@
 
 - (IBAction)refreshMainpageAction:(id)sender {
     [self getDataFromRemoteServer];
-    NSLog(@"click");
 }
 
 - (IBAction)menuButtonTapped:(id)sender {
